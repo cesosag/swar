@@ -1,0 +1,13 @@
+{
+  "name": "swar",
+  "version": "0.0.1",
+  "description": "React application that consumes Star Wars API",
+  "main": "index.js",
+  "repository": "git@github.com:cesosag/swar.git",
+  "author": "Carlos Sosa <cesosag@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}

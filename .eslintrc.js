@@ -27,5 +27,7 @@ module.exports = {
 		'no-tabs': ['error', { allowIndentationTabs: true }],
 		semi: ['error', 'never', { beforeStatementContinuationChars: 'always' }],
 		'node/no-unsupported-features/es-syntax': 'off',
+		'node/no-missing-import': ['error', { tryExtensions: ['.js', '.jsx', '.json'] }],
+		'react/jsx-indent': ['error', 'tab'],
 	},
 }

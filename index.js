@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const fs = require('fs')
 
 const getBabelConf = () => {
@@ -10,6 +11,6 @@ const getBabelConf = () => {
 }
 
 const { presets } = getBabelConf()
-require('@babel/register')({ presets });
+require('@babel/register')({ presets })
 
 require('./src/server')

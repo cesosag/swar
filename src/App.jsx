@@ -5,7 +5,7 @@ import swLogo from './assets/sw_logo.svg'
 const App = () => (
 	<>
 		<GlobalStyle />
-		<img alt="" src={swLogo} />
+		<img alt="SW Logo" src={swLogo} />
 		<h1>Hello, Star Wars</h1>
 	</>
 )

@@ -1,10 +1,18 @@
 const path = require('path')
+const { HotModuleReplacementPlugin } = require('webpack')
 
 require('dotenv').config()
 
+const { ENV } = process.env
+
+const isDev = ENV === 'development'
+
+const entry = [path.resolve(__dirname, 'src', 'index.jsx')]
+if (isDev) entry.push('webpack-hot-middleware/client?path=/__webpack_hmr&timeout=2000&reload=true')
+
 module.exports = {
-	mode: process.env.ENV,
-	entry: path.resolve(__dirname, 'src', 'index.jsx'),
+	mode: ENV,
+	entry,
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 		filename: 'app.js',
@@ -32,11 +40,14 @@ module.exports = {
 					{
 						loader: 'file-loader',
 						options: {
-							name: 'assets/[hash].[ext]',
+							name: 'assets/[name]-[hash].[ext]',
 						},
 					},
 				],
 			},
 		],
 	},
+	plugins: [
+		isDev ? new HotModuleReplacementPlugin() : () => {},
+	],
 }

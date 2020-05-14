@@ -10,8 +10,8 @@ export const GlobalStyle = createGlobalStyle`
 	}
 
 	body {
-		background-color: black;
-		color: yellow;
+		background-color: #000;
+		color: #FFE81F;
 		font-family: Roboto, sans-serif;
 		margin: 0 auto;
 	}

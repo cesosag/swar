@@ -12,6 +12,7 @@ export const GlobalStyle = createGlobalStyle`
 		color: #FFE81F;
 		font-family: Roboto, sans-serif;
 		margin: 0 auto;
+		overscroll-behavior: none;
 	}
 
 	html {

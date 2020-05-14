@@ -1,10 +1,16 @@
 /* eslint-disable no-console */
+/* eslint-disable react/jsx-filename-extension */
+import React from 'react'
+import { renderToString } from 'react-dom/server'
+import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
 import express from 'express'
 import dotenv from 'dotenv'
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import webpackConfig from '../webpack.config'
+
+import App from './App'
 import html from './html'
 
 dotenv.config()
@@ -22,7 +28,22 @@ if (isDev) {
 }
 
 const renderApp = (req, res) => {
-	res.send(html())
+	const styleSheet = new ServerStyleSheet()
+	let htmlString
+	let styleTags
+	try {
+		htmlString = renderToString(
+			<StyleSheetManager sheet={styleSheet.instance}>
+				<App />
+			</StyleSheetManager>,
+		)
+		styleTags = styleSheet.getStyleTags()
+	} catch (error) {
+		console.error(error)
+	} finally {
+		styleSheet.seal()
+	}
+	res.send(html(htmlString, styleTags))
 }
 
 app.get('*', renderApp)

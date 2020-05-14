@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@babel/register": "^7.9.0",
+    "asset-require-hook": "^1.2.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "react": "^16.13.1",

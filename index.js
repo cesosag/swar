@@ -12,5 +12,10 @@ const getBabelConf = () => {
 
 const { presets } = getBabelConf()
 require('@babel/register')({ presets })
+require('asset-require-hook')({
+	extensions: ['jpg', 'png', 'svg', 'gif'],
+	name: 'assets/[name].[ext]',
+	publicPath: '/',
+})
 
 require('./src/server')

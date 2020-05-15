@@ -1,6 +1,6 @@
-const ALIASES = {
+const routes = {
 	home: '/',
 	films: 'films',
 }
 
-export { ALIASES }
+export default routes

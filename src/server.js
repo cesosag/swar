@@ -3,6 +3,7 @@
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
+import { ServerLocation } from '@reach/router'
 import express from 'express'
 import dotenv from 'dotenv'
 import webpack from 'webpack'
@@ -34,7 +35,9 @@ const renderApp = (req, res) => {
 	try {
 		htmlString = renderToString(
 			<StyleSheetManager sheet={styleSheet.instance}>
-				<App />
+				<ServerLocation url={req.url}>
+					<App />
+				</ServerLocation>
 			</StyleSheetManager>,
 		)
 		styleTags = styleSheet.getStyleTags()

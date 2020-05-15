@@ -23,11 +23,13 @@ module.exports = {
 	},
 	plugins: ['react', 'react-hooks'],
 	rules: {
+		'import/prefer-default-export': ['off'],
 		indent: ['error', 'tab'],
+		'max-len': ['warn', { code: 160 }],
 		'no-tabs': ['error', { allowIndentationTabs: true }],
-		semi: ['error', 'never', { beforeStatementContinuationChars: 'always' }],
-		'node/no-unsupported-features/es-syntax': 'off',
+		'node/no-unsupported-features/es-syntax': ['off'],
 		'node/no-missing-import': ['error', { tryExtensions: ['.js', '.jsx', '.json'] }],
 		'react/jsx-indent': ['error', 'tab'],
+		semi: ['error', 'never', { beforeStatementContinuationChars: 'always' }],
 	},
 }

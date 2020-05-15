@@ -15,8 +15,16 @@ export const GlobalStyle = createGlobalStyle`
 		overscroll-behavior: none;
 	}
 
+	figure {
+		text-align: center;
+	}
+
 	html {
 		font-size: 62.5%;
+	}
+
+	img {
+		vertical-align: middle;
 	}
 `
 

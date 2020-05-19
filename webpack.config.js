@@ -1,5 +1,9 @@
+/* eslint-disable node/no-unpublished-require */
 const path = require('path')
 const { HotModuleReplacementPlugin } = require('webpack')
+const TerserPlugin = require('terser-webpack-plugin')
+const ManifestPlugin = require('webpack-manifest-plugin')
+const CompressionPlugin = require('compression-webpack-plugin')
 
 require('dotenv').config()
 
@@ -15,7 +19,7 @@ module.exports = {
 	entry,
 	output: {
 		path: path.resolve(__dirname, 'dist'),
-		filename: 'app.js',
+		filename: isDev ? 'app.js' : 'app-[hash].js',
 		publicPath: '/',
 	},
 	resolve: {
@@ -47,7 +51,42 @@ module.exports = {
 			},
 		],
 	},
+	optimization: {
+		minimize: true,
+		minimizer: [new TerserPlugin()],
+		splitChunks: {
+			chunks: 'async',
+			name: true,
+			cacheGroups: {
+				vendors: {
+					name: 'vendors',
+					chunks: 'all',
+					reuseExistingChunk: true,
+					priority: 1,
+					filename: isDev ? 'vendors.js' : 'vendors-[hash].js',
+					enforce: true,
+					test(module, chunks) {
+						const name = module.nameForCondition && module.nameForCondition()
+						return chunks.some((chunk) => chunk.name !== 'vendors' && /[\\/]node_modules[\\/]/.test(name))
+					},
+				},
+			},
+		},
+	},
 	plugins: [
 		isDev ? new HotModuleReplacementPlugin() : () => {},
+		!isDev ? new CompressionPlugin({
+			test: /\.(js|css|html|svg)$/,
+			algorithm: 'brotliCompress',
+			filename: '[path].br[query]',
+			minRatio: 0.8,
+		}) : () => {},
+		!isDev ? new CompressionPlugin({
+			test: /\.(js|css|html|svg)$/,
+			algorithm: 'gzip',
+			filename: '[path].gz[query]',
+			minRatio: 0.8,
+		}) : () => {},
+		!isDev ? new ManifestPlugin() : () => {},
 	],
 }

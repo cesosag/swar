@@ -7,6 +7,7 @@ import { ServerLocation } from '@reach/router'
 import express from 'express'
 import dotenv from 'dotenv'
 import path from 'path'
+import helmet from 'helmet'
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
@@ -50,6 +51,9 @@ if (isDev) {
 		next()
 	})
 	app.use(express.static(path.resolve(__dirname, '..', 'dist')))
+	app.use(helmet())
+	app.use(helmet.permittedCrossDomainPolicies())
+	app.disable('x-powered-by')
 }
 
 const renderApp = (req, res) => {

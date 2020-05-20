@@ -2,6 +2,9 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react'
 import { renderToString } from 'react-dom/server'
+import { getDataFromTree } from '@apollo/react-ssr'
+import { ApolloProvider } from '@apollo/react-common'
+import { InMemoryCache } from 'apollo-cache-inmemory'
 import { HelmetProvider } from 'react-helmet-async'
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
 import { ServerLocation } from '@reach/router'
@@ -16,6 +19,7 @@ import webpackConfig from '../webpack.config'
 
 import getManifest from './getManifest'
 
+import { createClient } from './apollo'
 import App from './App'
 import html from './html'
 
@@ -58,32 +62,40 @@ if (isDev) {
 }
 
 const renderApp = (req, res) => {
+	const client = createClient({ ssrMode: true, cache: new InMemoryCache() })
 	const helmetContext = {}
 	const styleSheet = new ServerStyleSheet()
-	let helmetObject
-	let htmlString
-	let styleTags
-	try {
-		htmlString = renderToString(
+	const AppSSR = (
+		<ApolloProvider client={client}>
 			<HelmetProvider context={helmetContext}>
 				<StyleSheetManager sheet={styleSheet.instance}>
 					<ServerLocation url={req.url}>
 						<App />
 					</ServerLocation>
 				</StyleSheetManager>
-			</HelmetProvider>,
-		)
-		helmetObject = helmetContext.helmet
-		styleTags = styleSheet.getStyleTags()
-	} catch (error) {
-		console.error(error)
-	} finally {
-		styleSheet.seal()
-	}
-	res.send(html(htmlString, styleTags, req.hashManifest, helmetObject))
+			</HelmetProvider>
+		</ApolloProvider>
+	)
+	getDataFromTree(AppSSR).then(() => {
+		let helmetObject
+		let htmlString
+		let styleTags
+		try {
+			htmlString = renderToString(AppSSR)
+			helmetObject = helmetContext.helmet
+			styleTags = styleSheet.getStyleTags()
+		} catch (error) {
+			console.error(error)
+		} finally {
+			styleSheet.seal()
+		}
+		const initialState = client.extract()
+		res.status(200)
+		res.send(html(htmlString, styleTags, req.hashManifest, helmetObject, initialState))
+		res.end()
+	}).catch((err) => console.error(err))
 }
-
-app.get('*', renderApp)
+app.use(renderApp)
 
 app.listen(PORT, (err) => {
 	if (err) console.error(err)

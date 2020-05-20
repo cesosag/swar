@@ -14,6 +14,7 @@ module.exports = {
 		Atomics: 'readonly',
 		SharedArrayBuffer: 'readonly',
 	},
+	parser: 'babel-eslint',
 	parserOptions: {
 		ecmaFeatures: {
 			jsx: true,
@@ -31,5 +32,6 @@ module.exports = {
 		'node/no-missing-import': ['error', { tryExtensions: ['.js', '.jsx', '.json'] }],
 		'react/jsx-indent': ['error', 'tab'],
 		semi: ['error', 'never', { beforeStatementContinuationChars: 'always' }],
+		strict: ['off'],
 	},
 }

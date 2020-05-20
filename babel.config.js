@@ -6,5 +6,6 @@ module.exports = {
 	plugins: [
 		'babel-plugin-styled-components',
 		'react-hot-loader/babel',
+		'@babel/plugin-proposal-optional-chaining',
 	],
 }

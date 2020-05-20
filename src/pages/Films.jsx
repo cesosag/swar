@@ -12,10 +12,14 @@ const Films = () => {
 			<Helmet>
 				<title>Star Wars Episodes</title>
 			</Helmet>
-			<h1>Here are the episodes</h1>
+			<h1>Star Wars Episodes</h1>
 			{episodes.length > 0 && (
 				<ul>
-					{episodes.map(({ id, title }) => <li key={id}>{title}</li>)}
+					{episodes.map(({ id, title, logo }) => (
+						<li key={id}>
+							<img src={logo} alt={title} />
+						</li>
+					))}
 				</ul>
 			)}
 		</>

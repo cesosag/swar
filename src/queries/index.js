@@ -2,10 +2,10 @@ import gql from 'graphql-tag'
 
 export const ALL_FILMS = gql`
 	{
-		allFilms {
+		allFilms(orderBy: episodeId_ASC) {
 			id
 			title
-			director
+			logo @client
 		}
 	}
 `

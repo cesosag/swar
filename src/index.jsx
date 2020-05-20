@@ -1,5 +1,12 @@
 import React from 'react'
 import { hydrate } from 'react-dom'
+import { HelmetProvider } from 'react-helmet-async'
 import App from './App'
 
-hydrate(<App />, document.getElementById('root'))
+const app = (
+	<HelmetProvider>
+		<App />
+	</HelmetProvider>
+)
+
+hydrate(app, document.getElementById('root'))

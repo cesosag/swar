@@ -2,6 +2,7 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react'
 import { renderToString } from 'react-dom/server'
+import { HelmetProvider } from 'react-helmet-async'
 import { ServerStyleSheet, StyleSheetManager } from 'styled-components'
 import { ServerLocation } from '@reach/router'
 import express from 'express'
@@ -57,24 +58,29 @@ if (isDev) {
 }
 
 const renderApp = (req, res) => {
+	const helmetContext = {}
 	const styleSheet = new ServerStyleSheet()
+	let helmetObject
 	let htmlString
 	let styleTags
 	try {
 		htmlString = renderToString(
-			<StyleSheetManager sheet={styleSheet.instance}>
-				<ServerLocation url={req.url}>
-					<App />
-				</ServerLocation>
-			</StyleSheetManager>,
+			<HelmetProvider context={helmetContext}>
+				<StyleSheetManager sheet={styleSheet.instance}>
+					<ServerLocation url={req.url}>
+						<App />
+					</ServerLocation>
+				</StyleSheetManager>
+			</HelmetProvider>,
 		)
+		helmetObject = helmetContext.helmet
 		styleTags = styleSheet.getStyleTags()
 	} catch (error) {
 		console.error(error)
 	} finally {
 		styleSheet.seal()
 	}
-	res.send(html(htmlString, styleTags, req.hashManifest))
+	res.send(html(htmlString, styleTags, req.hashManifest, helmetObject))
 }
 
 app.get('*', renderApp)

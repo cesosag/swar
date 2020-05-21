@@ -33,7 +33,7 @@ module.exports = {
 		'node/no-unsupported-features/es-syntax': ['off'],
 		'node/no-missing-import': ['error', { tryExtensions: ['.js', '.jsx', '.json'] }],
 		'react/jsx-indent': ['error', 'tab'],
-		'react/prop-types': ['warn'],
+		'react/prop-types': ['warn', { ignore: ['children'] }],
 		semi: ['error', 'never', { beforeStatementContinuationChars: 'always' }],
 		strict: ['off'],
 	},

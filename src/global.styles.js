@@ -1,6 +1,10 @@
 import styled, { createGlobalStyle } from 'styled-components'
 import { normalize } from 'polished'
 
+export const cssVars = {
+	maxWidth: 1200,
+}
+
 export const GlobalStyle = createGlobalStyle`
 	${normalize()}
 
@@ -22,6 +26,14 @@ export const GlobalStyle = createGlobalStyle`
 		text-align: center;
 	}
 
+	footer {
+		grid-area: footer;
+	}
+
+	header {
+		grid-area: header;
+	}
+
 	html {
 		font-size: 62.5%;
 	}
@@ -30,10 +42,24 @@ export const GlobalStyle = createGlobalStyle`
 		max-width: 100%;
 		vertical-align: middle;
 	}
+
+	main {
+		grid-area: main;
+	}
+
+	#root {
+		display: grid;
+		grid-template-areas:
+			'header'
+			'main'
+			'footer';
+		margin: 0 auto;
+		max-width: ${cssVars.maxWidth}px;
+	}
 `
 
 export const Wrapper = styled.div`
 	margin: 0 auto;
-	max-width: 1200px;
+	max-width: ${cssVars.maxWidth}px;
 	padding: 1rem;
 `

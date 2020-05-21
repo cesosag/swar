@@ -9,3 +9,15 @@ export const ALL_EPISODES = gql`
 		}
 	}
 `
+
+export const GET_EPISODE = gql`
+	query episode($title: String!) {
+		Film(title: $title) {
+			id
+			title
+			director
+			openingCrawl
+			poster @client
+		}
+}
+`

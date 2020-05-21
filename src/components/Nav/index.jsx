@@ -5,7 +5,9 @@ import routes from '../../routes'
 const Nav = () => (
 	<nav>
 		<NavList>
-			{Object.entries(routes).map((alias) => <NavItem key={alias[0]}><Link to={alias[1]}>{alias[0]}</Link></NavItem>)}
+			{Object.values(routes).map(({ path, name, child }) => (
+				!child && <NavItem key={name}><Link to={path}>{name}</Link></NavItem>
+			))}
 		</NavList>
 	</nav>
 )

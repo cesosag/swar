@@ -1,6 +1,6 @@
 import gql from 'graphql-tag'
 
-export const ALL_FILMS = gql`
+export const ALL_EPISODES = gql`
 	{
 		allFilms(orderBy: episodeId_ASC) {
 			id

@@ -1,4 +1,5 @@
 import Home from './Home'
-import Films from './Films'
+import Episodes from './Episodes'
+import Episode from './Episode'
 
-export { Home, Films }
+export { Home, Episodes, Episode }

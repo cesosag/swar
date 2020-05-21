@@ -4,7 +4,7 @@ import { GlobalStyle } from './global.styles'
 import routes from './routes'
 import { Image, Nav } from './components'
 import swLogo from './assets/sw_logo.svg'
-import { Home, Films } from './pages'
+import { Home, Episodes, Episode } from './pages'
 
 const App = () => (
 	<>
@@ -12,8 +12,9 @@ const App = () => (
 		<Image alt="SW Logo" src={swLogo} />
 		<Nav />
 		<Router>
-			<Home path={routes.home} />
-			<Films path={routes.films} />
+			<Home path={routes?.home?.path} />
+			<Episodes path={routes?.episodes?.path} />
+			<Episode path={routes?.episode?.path} />
 		</Router>
 	</>
 )

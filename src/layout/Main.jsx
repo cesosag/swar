@@ -1,5 +1,5 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 
-const Main = ({ children }) => <main>{children}</main>
+const Main = forwardRef(({ children }, ref) => <main ref={ref}>{children}</main>)
 
 export default Main

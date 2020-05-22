@@ -8,7 +8,7 @@ const html = (htmlString, styles, manifest, helmet, apolloState) => {
 			<head>
 				<meta charset="UTF-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-				<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+				<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
 				${styles}
 				${helmet?.title?.toString()}
 				${helmet?.meta?.toString()}

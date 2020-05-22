@@ -4,6 +4,7 @@ import { Link as RouterLink } from '@reach/router'
 export const NavList = styled.ul`
 	display: flex;
 	justify-content: space-around;
+	padding: 0;
 `
 
 export const NavItem = styled.li`
@@ -12,7 +13,6 @@ export const NavItem = styled.li`
 
 export const Link = styled(RouterLink)`
 	color: inherit;
-	font-size: 24px;
 	text-decoration: none;
 	text-transform: uppercase;
 `

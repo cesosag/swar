@@ -29,6 +29,7 @@
     "graphql": "^14.3.1",
     "graphql-tag": "^2.10.3",
     "helmet": "^3.22.0",
+    "mime-types": "^2.1.27",
     "node-fetch": "^2.6.0",
     "polished": "^3.6.3",
     "prop-types": "^15.7.2",

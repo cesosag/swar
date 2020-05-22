@@ -12,10 +12,12 @@ import express from 'express'
 import dotenv from 'dotenv'
 import path from 'path'
 import helmet from 'helmet'
+import mime from 'mime-types'
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import webpackConfig from '../webpack.config'
+
 
 import getManifest from './getManifest'
 
@@ -36,23 +38,17 @@ if (isDev) {
 	app.use(webpackDevMiddleware(compiler, serverConfig))
 	app.use(webpackHotMiddleware(compiler))
 } else {
-	const MIME_TYPES = {
-		js: 'application/javascript',
-		html: 'text/html',
-		css: 'text/css',
-		svg: 'image/svg+xml',
-	}
 	app.use((req, res, next) => {
 		if (!req.hashManifest) req.hashManifest = getManifest()
 		next()
 	})
 	app.get(/\.(js|css|html|svg)$/, (req, res, next) => {
-		const ext = req.url.split('.').pop()
+		const ext = path.extname(req.url)
 		const compressionMethod = req.header('Accept-Encoding').includes('br') ? 'br' : 'gzip'
 		const compressionExt = compressionMethod === 'gzip' ? 'gz' : compressionMethod
 		req.url = `${req.url}.${compressionExt}`
 		res.set('Content-Encoding', compressionMethod)
-		res.set('Content-Type', `${MIME_TYPES[ext]}; charset=UTF-8`)
+		res.set('Content-Type', mime.contentType(ext))
 		next()
 	})
 	app.use(express.static(path.resolve(__dirname, '..', 'dist')))

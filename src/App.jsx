@@ -1,8 +1,7 @@
 import React from 'react'
 import { Router } from '@reach/router'
-import { GlobalStyle } from './global.styles'
+import { GlobalStyle, Header, Main, Footer } from './styles'
 import routes from './routes'
-import { Main } from './layout'
 import { Image, Nav } from './components'
 import swLogo from './assets/sw_logo.svg'
 import { Home, Episodes, Episode } from './pages'
@@ -10,18 +9,18 @@ import { Home, Episodes, Episode } from './pages'
 const App = () => (
 	<>
 		<GlobalStyle />
-		<header>
+		<Header>
 			<Image alt="SW Logo" src={swLogo} />
 			<Nav />
-		</header>
+		</Header>
 		<Router component={Main}>
 			<Home path={routes?.home?.path} />
 			<Episodes path={routes?.episodes?.path} />
 			<Episode path={routes?.episode?.path} />
 		</Router>
-		<footer>
-			TM & © Lucasfilm Ltd. All Rights Reserved
-		</footer>
+		<Footer>
+			<small>TM & © Lucasfilm Ltd. All Rights Reserved</small>
+		</Footer>
 	</>
 )
 

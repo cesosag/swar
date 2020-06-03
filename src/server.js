@@ -16,7 +16,7 @@ import mime from 'mime-types'
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
-import webpackConfig from '../webpack.config'
+import webpackConfig from '../webpack.config.server'
 
 import getManifest from './getManifest'
 
@@ -32,10 +32,10 @@ const app = express()
 console.log(`This is ${ENV}`)
 
 if (isDev) {
-	const compiler = webpack(webpackConfig)
+	/* const compiler = webpack(webpackConfig)
 	const serverConfig = { port: PORT, hot: true }
 	app.use(webpackDevMiddleware(compiler, serverConfig))
-	app.use(webpackHotMiddleware(compiler))
+	app.use(webpackHotMiddleware(compiler)) */
 } else {
 	app.use((req, res, next) => {
 		if (!req.hashManifest) req.hashManifest = getManifest()

@@ -9,7 +9,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon index.js",
-    "build": "webpack-cli",
+    "build": "rm -rf dist && webpack-cli --config webpack.config.server.js && webpack-cli --config webpack.config.client.js",
     "lint": "eslint ./src --fix"
   },
   "husky": {
@@ -45,7 +45,8 @@
     "styled-components": "^5.1.0",
     "webpack": "^4.43.0",
     "webpack-dev-middleware": "^3.7.2",
-    "webpack-hot-middleware": "^2.25.0"
+    "webpack-hot-middleware": "^2.25.0",
+    "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
     "@babel/core": "^7.9.6",

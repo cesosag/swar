@@ -12,7 +12,7 @@ const { ENV } = process.env
 
 const isDev = ENV === 'development'
 
-const entry = [path.resolve(__dirname, 'src', 'index.jsx')]
+const entry = [path.join(__dirname, 'src', 'index.jsx')]
 if (isDev) entry.push('webpack-hot-middleware/client?path=/__webpack_hmr&timeout=2000&reload=true')
 
 module.exports = {
@@ -23,6 +23,8 @@ module.exports = {
 		filename: isDev ? 'app.js' : 'app-[hash].js',
 		publicPath: '/',
 	},
+	target: 'web',
+	devtool: 'source-map',
 	resolve: {
 		extensions: ['.js', '.jsx'],
 	},

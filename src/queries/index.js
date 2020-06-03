@@ -19,5 +19,5 @@ export const GET_EPISODE = gql`
 			openingCrawl
 			poster @client
 		}
-}
+	}
 `

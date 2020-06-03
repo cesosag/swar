@@ -9,6 +9,7 @@ module.exports = {
 		'plugin:node/recommended',
 		'airbnb',
 		'airbnb/hooks',
+		'plugin:prettier/recommended',
 	],
 	globals: {
 		Atomics: 'readonly',
@@ -26,7 +27,7 @@ module.exports = {
 	rules: {
 		'arrow-body-style': ['warn', 'as-needed'],
 		'import/prefer-default-export': ['off'],
-		indent: ['error', 'tab'],
+		indent: ['warn', 'tab'],
 		'max-len': ['warn', { code: 160 }],
 		'no-tabs': ['error', { allowIndentationTabs: true }],
 		'no-unused-vars': ['warn'],

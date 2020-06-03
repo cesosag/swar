@@ -9,8 +9,9 @@ const link = createHttpLink({
 	fetch,
 })
 
-export const createClient = (options) => new ApolloClient({
-	link,
-	resolvers,
-	...options,
-})
+export const createClient = options =>
+	new ApolloClient({
+		link,
+		resolvers,
+		...options,
+	})

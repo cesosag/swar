@@ -5,9 +5,14 @@ import routes from '../../routes'
 const Nav = () => (
 	<nav>
 		<NavList>
-			{Object.values(routes).map(({ path, name, child }) => (
-				!child && <NavItem key={name}><Link to={path}>{name}</Link></NavItem>
-			))}
+			{Object.values(routes).map(
+				({ path, name, child }) =>
+					!child && (
+						<NavItem key={name}>
+							<Link to={path}>{name}</Link>
+						</NavItem>
+					)
+			)}
 		</NavList>
 	</nav>
 )

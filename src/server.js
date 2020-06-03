@@ -18,7 +18,6 @@ import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import webpackConfig from '../webpack.config'
 
-
 import getManifest from './getManifest'
 
 import { createClient } from './apollo'
@@ -44,8 +43,11 @@ if (isDev) {
 	})
 	app.get(/\.(js|css|html|svg)$/, (req, res, next) => {
 		const ext = path.extname(req.url)
-		const compressionMethod = req.header('Accept-Encoding').includes('br') ? 'br' : 'gzip'
-		const compressionExt = compressionMethod === 'gzip' ? 'gz' : compressionMethod
+		const compressionMethod = req.header('Accept-Encoding').includes('br')
+			? 'br'
+			: 'gzip'
+		const compressionExt =
+			compressionMethod === 'gzip' ? 'gz' : compressionMethod
 		req.url = `${req.url}.${compressionExt}`
 		res.set('Content-Encoding', compressionMethod)
 		res.set('Content-Type', mime.contentType(ext))
@@ -72,28 +74,38 @@ const renderApp = (req, res) => {
 			</HelmetProvider>
 		</ApolloProvider>
 	)
-	getDataFromTree(AppSSR).then(() => {
-		let helmetObject
-		let htmlString
-		let styleTags
-		try {
-			htmlString = renderToString(AppSSR)
-			helmetObject = helmetContext.helmet
-			styleTags = styleSheet.getStyleTags()
-		} catch (error) {
-			console.error(error)
-		} finally {
-			styleSheet.seal()
-		}
-		const initialState = client.extract()
-		res.status(200)
-		res.send(html(htmlString, styleTags, req.hashManifest, helmetObject, initialState))
-		res.end()
-	}).catch((err) => console.error(err))
+	getDataFromTree(AppSSR)
+		.then(() => {
+			let helmetObject
+			let htmlString
+			let styleTags
+			try {
+				htmlString = renderToString(AppSSR)
+				helmetObject = helmetContext.helmet
+				styleTags = styleSheet.getStyleTags()
+			} catch (error) {
+				console.error(error)
+			} finally {
+				styleSheet.seal()
+			}
+			const initialState = client.extract()
+			res.status(200)
+			res.send(
+				html(
+					htmlString,
+					styleTags,
+					req.hashManifest,
+					helmetObject,
+					initialState
+				)
+			)
+			res.end()
+		})
+		.catch(err => console.error(err))
 }
 app.use(renderApp)
 
-app.listen(PORT, (err) => {
+app.listen(PORT, err => {
 	if (err) console.error(err)
 	else console.log(`Server running in port ${PORT}`)
 })

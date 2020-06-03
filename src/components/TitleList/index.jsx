@@ -7,7 +7,9 @@ const TitleList = ({ titles }) => (
 	<TitlesContainer>
 		{titles.map(({ id, title, logo }) => (
 			<TitleItem key={id}>
-				<Link to={`/episodes/${slugify(title)}`}><img src={logo} alt={title} /></Link>
+				<Link to={`/episodes/${slugify(title)}`}>
+					<img src={logo} alt={title} />
+				</Link>
 			</TitleItem>
 		))}
 	</TitlesContainer>

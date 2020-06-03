@@ -1,5 +1,5 @@
-export const slugify = (url) => url.replace(/\s/g, '-')
-export const deslugify = (slug) => slug.replace(/-/g, ' ')
+export const slugify = url => url.replace(/\s/g, '-')
+export const deslugify = slug => slug.replace(/-/g, ' ')
 
 const routes = {
 	home: {

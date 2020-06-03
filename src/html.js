@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 const html = (htmlString, styles, manifest, helmet, apolloState) => {
 	const vendorsFile = manifest ? manifest['vendors.js'] : '/vendors.js'
 	const appFile = manifest ? manifest['main.js'] : '/app.js'

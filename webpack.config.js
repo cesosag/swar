@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable node/no-unpublished-require */
 const path = require('path')
 const { HotModuleReplacementPlugin } = require('webpack')
@@ -78,7 +79,7 @@ module.exports = {
 					enforce: true,
 					test(module, chunks) {
 						const name = module.nameForCondition && module.nameForCondition()
-						return chunks.some((chunk) => chunk.name !== 'vendors' && /[\\/]node_modules[\\/]/.test(name))
+						return chunks.some(chunk => chunk.name !== 'vendors' && /[\\/]node_modules[\\/]/.test(name))
 					},
 				},
 			},
